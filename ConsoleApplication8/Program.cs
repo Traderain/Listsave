@@ -57,7 +57,7 @@ namespace ConsoleApplication8
         {
             try
             {
-                Console.Title = ("Listsave v0.1");
+                Console.Title = ("Listsave v0.2");
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("Listsave by Traderain");
                 Console.WriteLine("---------------------");
@@ -82,9 +82,9 @@ namespace ConsoleApplication8
                 var time = 0f;
                 var goodoffset = 0;
                 var map = "";
-                using (var br = new BinaryReader(new MemoryStream(filedata)))
+                using (var br = new BinaryReader(new MemoryStream(filedata),Encoding.ASCII))
                 {
-                    var skylocations = filedata.Locate(Encoding.UTF8.GetBytes("sky_"));
+                    var skylocations = filedata.Locate(Encoding.ASCII.GetBytes("sky_"));
                     Console.WriteLine("Found _sky locations:");
                     foreach (var loc in skylocations)
                     {
