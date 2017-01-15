@@ -1,0 +1,6 @@
+c:\users\traderai\documents\visual studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\obj\Debug\ConsoleApplication8.csprojResolveAssemblyReference.cache
+C:\Users\Traderai\Documents\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\bin\Debug\Listsave.exe.config
+C:\Users\Traderai\Documents\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\bin\Debug\Listsave.exe
+C:\Users\Traderai\Documents\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\bin\Debug\Listsave.pdb
+C:\Users\Traderai\Documents\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\obj\Debug\Listsave.exe
+C:\Users\Traderai\Documents\Visual Studio 2015\Projects\ConsoleApplication8\ConsoleApplication8\obj\Debug\Listsave.pdb
