@@ -55,6 +55,8 @@ namespace ConsoleApplication8
          */
         static void Main(string[] args)
         {
+            args = new string[2];
+            args[0] = "test.sav";
             try
             {
                 Console.Title = ("Listsave v0.2");
@@ -90,7 +92,7 @@ namespace ConsoleApplication8
                     {
                         br.BaseStream.Seek(loc, SeekOrigin.Begin);
                         var skyname = new string(br.ReadChars(32).Where(x => char.IsLetter(x) || char.IsNumber(x) || x == '_').ToArray());
-                        if (skyname.Contains("day"))
+                        if (skyname.Contains("day") || skyname.Contains("ep"))
                         {
                             goodoffset = loc;
                             Console.ForegroundColor = ConsoleColor.Green;
@@ -115,7 +117,7 @@ namespace ConsoleApplication8
                     Console.Write("Found the timestamp! The save has been made " + time + "s after the loading of " + map + ".");
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Red;
