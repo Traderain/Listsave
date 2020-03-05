@@ -34,9 +34,9 @@ namespace ConsoleApplication8
             args = new string[]
             {
                 "--file",
-                "010-corky-0585s.sav"
-            };
-#endif
+                "D:\\speedrun\\006-munted.sav"
+            };                            
+#endif                                    
             Console.Title = version;
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine(version);

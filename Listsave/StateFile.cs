@@ -35,7 +35,7 @@ namespace ConsoleApplication8
                     {
                         case "hl1":
                         {
-                            Console.WriteLine("\tParing statefile: " + filename);
+                            Console.Write("\tParing statefile: " + filename);
                             HL1StateFile(br);
                             break;
                         }
@@ -48,46 +48,55 @@ namespace ConsoleApplication8
 
         public void HL1StateFile(BinaryReader br)
         {
-            var version = br.ReadInt32();
-            var nBytesSymbols = br.ReadInt32();
-            var nSymbols = br.ReadInt32();
-            var nBytesDataHeaders = br.ReadInt32();
-            var nBytesData = br.ReadInt32();
-            
-            symbols = Encoding.ASCII.GetString(br.ReadBytes(nBytesSymbols)).Split('\0').ToList();
-            symbols.RemoveAll(x => x == String.Empty); // Remove '\0'
-            //Console.WriteLine($"Symbols({symbols.Count}):");
-            //symbols.ForEach(x => Console.WriteLine("\t- " + x));
-
-            var dataheaders = br.ReadBytes(nBytesDataHeaders);
-
-            //Read remaining data len(nBytesData)
-            //Console.WriteLine($"Reading the actual data - br at {br.BaseStream.Position}/{br.BaseStream.Length} ");
-            List<Token> tokens = new List<Token>();
-            bool symbolsdone = false;
-            for(int i = 0; i < 10; i++)
+            try
             {
-                //Read the token
-                Token t;
-                t.len = br.ReadUInt16();
-                t.idx = br.ReadUInt16();
-                if (br.BaseStream.Position+t.len >= br.BaseStream.Length)
-                {
-                    symbolsdone = true;
-                    continue;
-                }
-                t.contents = br.ReadBytes(t.len);
-                t.str = Encoding.ASCII.GetString(t.contents);
-                tokens.Add(t);
+                var version = br.ReadInt32();
+                var nBytesSymbols = br.ReadInt32();
+                var nSymbols = br.ReadInt32();
+                var nBytesDataHeaders = br.ReadInt32();
+                var nBytesData = br.ReadInt32();
 
-                if (br.BaseStream.Position == br.BaseStream.Length)
-                    symbolsdone = true;
+                symbols = Encoding.ASCII.GetString(br.ReadBytes(nBytesSymbols)).Split('\0').ToList();
+                symbols.RemoveAll(x => x == String.Empty); // Remove '\0'
+                                                           //Console.WriteLine($"Symbols({symbols.Count}):");
+                                                           //symbols.ForEach(x => Console.WriteLine("\t- " + x));
+
+                var dataheaders = br.ReadBytes(nBytesDataHeaders);
+
+                //Read remaining data len(nBytesData)
+                //Console.WriteLine($"Reading the actual data - br at {br.BaseStream.Position}/{br.BaseStream.Length} ");
+                List<Token> tokens = new List<Token>();
+                br.BaseStream.Seek(0x24, SeekOrigin.Current);
+                /*bool symbolsdone = false;
+                for(int i = 0; i < 10; i++)
+                {
+                    //Read the token
+                    Token t;
+                    t.len = br.ReadUInt16();
+                    t.idx = br.ReadUInt16();
+                    if (br.BaseStream.Position+t.len >= br.BaseStream.Length)
+                    {
+                        symbolsdone = true;
+                        continue;
+                    }
+                    t.contents = br.ReadBytes(t.len);
+                    t.str = Encoding.ASCII.GetString(t.contents);
+                    tokens.Add(t);
+
+                    if (br.BaseStream.Position == br.BaseStream.Length)
+                        symbolsdone = true;
+                }*/
+                //Console.WriteLine("Tokencount: " + tokens.Count);
+                var time = br.ReadSingle();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("=> \tTime: " + time.ToString("G") + "s");
+                Console.ForegroundColor = ConsoleColor.White;
             }
-            //Console.WriteLine("Tokencount: " + tokens.Count);
-            var time = BitConverter.ToSingle(tokens[5].contents, 0);
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Time: " + time.ToString("G") + "s");
-            Console.ForegroundColor = ConsoleColor.White;
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         struct Token

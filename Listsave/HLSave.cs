@@ -55,9 +55,12 @@ namespace ConsoleApplication8
             bool end = false;
             while (!end)
             {
-                var statefilename = new String(br.ReadChars(260));
+                var statefilename = new String(br.ReadChars(260)).Trim('\0');
                 var filelength = br.ReadInt32();
                 var Data = br.ReadBytes(filelength);
+#if DEBUG
+                //File.WriteAllBytes(statefilename, Data);
+#endif
                 StateFile s = new StateFile(statefilename, Data);
                 stateFiles.Add(s);
                 if (br.BaseStream.Position == br.BaseStream.Length)
